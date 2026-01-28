@@ -10,4 +10,7 @@ public interface ContactoServicio
     Contacto obtenerPorId(Long id);
     Contacto guardar(Contacto contacto);
     void eliminar(Long id);
+
+    //parte 2
+    Contacto actualizarTelefono(Long id, String telefono);
 }
