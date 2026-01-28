@@ -3,7 +3,7 @@ package agenda;
 import agenda.Entidades.Contacto;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
@@ -37,6 +37,11 @@ public class ClientePrueba
 
 		//GET todos
 		listarContactos();
+
+		//parte 2 - PUT cambiar telefono
+		nuevoContacto.setTelefono("622947560");
+		Contacto actualizado = modificarContacto(nuevoContacto.getId(), nuevoContacto);
+		System.out.println("Contacto actualizado: " +actualizado);
 
 	}
 
@@ -72,4 +77,17 @@ public class ClientePrueba
 		restTemplate.delete(BASE_URL + "/" +id);
 	}
 
+	//metodo PUT parte 2
+	private Contacto modificarContacto (Long id, Contacto contacto) {
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+
+		HttpEntity<Contacto> requestEntity = new HttpEntity<>(contacto, headers);
+
+		ResponseEntity<Contacto> response =
+				restTemplate.exchange(BASE_URL + "/" + id, HttpMethod.PUT,
+						requestEntity, Contacto.class);
+		return response.getBody();
+	}
 }
