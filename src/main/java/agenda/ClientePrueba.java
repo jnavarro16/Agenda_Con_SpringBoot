@@ -28,6 +28,11 @@ public class ClientePrueba
 		//GET por id
 		obtenerContactoPorId(nuevoContacto.getId());
 
+		//parte 2 - PUT cambiar telefono
+		nuevoContacto.setTelefono("622947560");
+		Contacto actualizado = modificarContacto(nuevoContacto.getId(), nuevoContacto);
+		System.out.println("Contacto actualizado: " +actualizado);
+
 		//Comprobar con GET
 		obtenerContactoPorId(nuevoContacto.getId());
 
@@ -37,12 +42,6 @@ public class ClientePrueba
 
 		//GET todos
 		listarContactos();
-
-		//parte 2 - PUT cambiar telefono
-		nuevoContacto.setTelefono("622947560");
-		Contacto actualizado = modificarContacto(nuevoContacto.getId(), nuevoContacto);
-		System.out.println("Contacto actualizado: " +actualizado);
-
 	}
 
 	private Contacto agregarContacto(Contacto contacto) {
