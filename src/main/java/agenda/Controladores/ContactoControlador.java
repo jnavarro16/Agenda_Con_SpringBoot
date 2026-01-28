@@ -14,7 +14,7 @@ public class ContactoControlador {
     private final ContactoServicio contactoServicio;
 
     @Autowired
-    public ContactoControlador(ContactoServicio contactoServicio){
+    public ContactoControlador(ContactoServicio contactoServicio) {
         this.contactoServicio = contactoServicio;
     }
 
@@ -26,7 +26,7 @@ public class ContactoControlador {
     @GetMapping("/{id}")
     public ResponseEntity<Contacto> obtenerPorId(@PathVariable Long id) {
         Contacto c = contactoServicio.obtenerPorId(id);
-        if(c == null) return ResponseEntity.notFound().build();
+        if (c == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(c);
     }
 
@@ -38,5 +38,14 @@ public class ContactoControlador {
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable Long id) {
         contactoServicio.eliminar(id);
+    }
+
+    //parte 2, PUT para actualizar teléfono
+    @PutMapping("/{id}")
+    public ResponseEntity<Contacto> actualizarTelefono(@PathVariable Long id, @RequestBody Contacto contacto)
+    {
+        Contacto actualizado = contactoServicio.actualizarTelefono(id, contacto.getTelefono());
+        if (actualizado == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(actualizado);
     }
 }
